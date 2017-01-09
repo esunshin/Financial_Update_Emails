@@ -166,17 +166,23 @@ def getPriceFromFile(ticker):
     return price
 
 def getChange(ticker):
-    currP = getPriceFromFile(ticker)
-    openP = getClose(ticker)
-    print("Curr: $" + currP)
-    print("Open: $" + openP)
+
+    currP = getPrice(ticker)
+    origP = getClose(ticker)
     cP = float(currP)
-    oP = float(openP)
+    oP = float(origP)
     diff = (cP - oP)
     change = (diff / oP) * 100
     print("differ " + str(diff))
     print("change " + str(change))
     return ('%.2f' % change)
+
+
+    # currP = getPriceFromFile(ticker)
+#     openP = getClose(ticker)
+#     print("Curr: $" + currP)
+#     print("Open: $" + openP)
+    
 
 def getDate():
     day = str(datetime.now().day)
