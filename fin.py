@@ -232,5 +232,12 @@ def getEmail(emailFile):
     print email
     return email
 
+def getPass(emailFile):
+    with open(emailFile, "rb") as f:
+        email = f.readline()
+    pw = email.split(',',1)[1]
+    print pw
+    return pw
+
 
 
