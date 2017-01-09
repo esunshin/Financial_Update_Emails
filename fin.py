@@ -136,8 +136,8 @@ def writeFile(dict):
     print(text)
     writeText(text)
 
-def emailFile(fileName):
-    yag = yagmail.SMTP('ezra.sunshine', 'ESunshine17')
+def emailFile(emailAddress, fileName):
+    yag = 
     to = 'ezra.sunshine@gmail.com'
     subject = 'Financial Update'
     body = (fileName + '.html')
@@ -225,4 +225,12 @@ def internet_on():
         return True
     except urllib2.URLError as err: pass
     return False
+
+def getEmail(emailFile):
+    with open(emailFile, "rb") as f:
+        email = f.readline()
+    print email
+    return email
+
+
 
