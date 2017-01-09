@@ -50,8 +50,6 @@ def getPrice(ticker):
         page = body.decode('iso-8859-1')
         data = page.split("lastPrice",1)[1]
         price = data.split("}",1)[0][2:]
-        print(price)
-    print(price)
     return price
 
 def getClose(ticker):
@@ -68,8 +66,6 @@ def getClose(ticker):
         page = body.decode('iso-8859-1')
         data = page.split("previousClosingPriceOneTradingDayAgo",1)[1]
         price = data.split(",",1)[0][2:]
-        print(price)
-    print(price)
     return price
     
 def writeNews(news):
@@ -97,42 +93,42 @@ def writeText(text):
     with open('web.html', 'a') as the_file:
         the_file.write(text)
 
-def writeTextLine(text):
+def writeLine(text):
     return (text + "\n")
 
 def writeFile(dict):
     tickers = getTickers()
     remFile()
     text = ""
-    text += writeTextLine("<style>")
-    text += writeTextLine("th, td {")
-    text += writeTextLine("  padding: 5px")
-    text += writeTextLine("}")
-    text += writeTextLine("th {")
-    text += writeTextLine("  text-align: left;")
-    text += writeTextLine("}")
-    text += writeTextLine("</style>")
-    text += writeTextLine("<table style=\"width:50%\">")
-    text += writeTextLine("  <tr>")
-    text += writeTextLine("    <th>" + "Name" + "</th>")
-    text += writeTextLine("    <th>" + "Current" + "</th>")
-    text += writeTextLine("    <th>" + "Change" + "</th>")
-    text += writeTextLine("  </tr>")
+    text += writeLine("<style>")
+    text += writeLine("th, td {")
+    text += writeLine("  padding: 5px")
+    text += writeLine("}")
+    text += writeLine("th {")
+    text += writeLine("  text-align: left;")
+    text += writeLine("}")
+    text += writeLine("</style>")
+    text += writeLine("<table style=\"width:50%\">")
+    text += writeLine("  <tr>")
+    text += writeLine("    <th>" + "Name" + "</th>")
+    text += writeLine("    <th>" + "Current" + "</th>")
+    text += writeLine("    <th>" + "Change" + "</th>")
+    text += writeLine("  </tr>")
 
     for ticker in tickers: 
-        text += writeTextLine("  <tr>")
-        text += writeTextLine("    <td>" + getName(dict, ticker) + "</td>")
-        text += writeTextLine("    <td>$" + getPrice(ticker) + "</td>")
+        text += writeLine("  <tr>")
+        text += writeLine("    <td>" + getName(dict, ticker) + "</td>")
+        text += writeLine("    <td>$" + getPrice(ticker) + "</td>")
         change = getChange(ticker)
         if( float(change) > 0 ):
-            text += writeTextLine("    <td style=\"color:#00A000\";>" + change + "%</td>")           
+            text += writeLine("    <td style=\"color:#00A000\";>" + change + "%</td>")           
         elif( float(change) < 0 ):
-            text += writeTextLine("    <td style=\"color:#A00000\";>" + change + "%</td>")
+            text += writeLine("    <td style=\"color:#A00000\";>" + change + "%</td>")
         else:
-            text += writeTextLine("    <td>" + getChange(ticker) + "%</td>")
-        text += writeTextLine("  </tr>")
+            text += writeLine("    <td>" + getChange(ticker) + "%</td>")
+        text += writeLine("  </tr>")
 
-    text += writeTextLine("</table>")
+    text += writeLine("</table>")
     print(text)
     writeText(text)
 
@@ -166,30 +162,19 @@ def getPriceFromFile(ticker):
     return price
 
 def getChange(ticker):
-
     currP = getPrice(ticker)
     origP = getClose(ticker)
     cP = float(currP)
     oP = float(origP)
     diff = (cP - oP)
     change = (diff / oP) * 100
-    print("differ " + str(diff))
-    print("change " + str(change))
     return ('%.2f' % change)
-
-
-    # currP = getPriceFromFile(ticker)
-#     openP = getClose(ticker)
-#     print("Curr: $" + currP)
-#     print("Open: $" + openP)
-    
 
 def getDate():
     day = str(datetime.now().day)
     month = str(datetime.now().month)
     year = str(datetime.now().year)
     date = month + "/" + day + "/" + year
-    print(date)
     return date
     
 def getHMinCombo():
@@ -210,8 +195,6 @@ def getTickers():
             "SPX:IND": "S&P"}
     return tickers 
 
-#   https://www.bloomberg.com/quote/GC1:COM
-
 def getCodes(dict):
     codes = list(dict.keys())
     return codes
@@ -230,22 +213,17 @@ def getTo(emailFile):
     with open(emailFile, "rb") as f:
         email = f.readline()
     to = email.split(',',1)[0]
-    print to
     return to
     
 def getFrom(emailFile):
     with open(emailFile, "rb") as f:
         email = f.readline()
     sender = email.split(',',2)[1]
-    print sender
     return sender
 
 def getPass(emailFile):
     with open(emailFile, "rb") as f:
         email = f.readline()
     pw = email.split(',',2)[2]
-    print pw
     return pw
-
-
 

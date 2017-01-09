@@ -3,27 +3,24 @@
 from fin import *
 
 tickers = getTickers()
+codes = getCodes(tickers)   #  list codes
+for code in codes:
+    print("Name: " + tickers[code]) #  print names
 codes = getCodes(tickers)
 triggerOpenTime = 930
 triggerCloseTime = 1600
 # while True:
 #     if isWeekday():
 #         if (isTime(triggerOpenTime)):
-
-print(tickers)  #  print dictionary
-codes = getCodes(tickers)   #  list codes
-print(codes)    #  print codes
-for code in codes:
-    print("Name: " + tickers[code]) #  print names
-
-
 if(internet_on()):
     print("Connected to Internet")
     for ticker in codes:
         writePriceToFile("O", ticker, getDate())
     writeFile(tickers)
     time.sleep(10)
+    print("Emailing file...")
     emailFile('web')
+    print("Email sent")
     time.sleep(240)
 else:
     print("NOT Connected to Internet")
@@ -35,16 +32,8 @@ if(internet_on()):
 else:
     print("NOT Connected to Internet")
 
-# getTo("addresses.txt")
-# getFrom("addresses.txt")
-# getPass("addresses.txt")
-
 
 #         else:
 #             time.sleep(60)
 #     else:
 #         time.sleep(3600)
-
-
-# writePriceToFile("O", "GC1:COM", getDate())
-# getChange("GC1:COM")
