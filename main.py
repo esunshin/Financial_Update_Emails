@@ -13,7 +13,7 @@ except ImportError:
 from datetime import datetime
 import yagmail
 import urllib2
-
+# TEST
 
 def getNews(ticker):
     page = '0'
