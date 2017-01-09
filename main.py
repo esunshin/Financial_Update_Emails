@@ -2,7 +2,6 @@
 
 from fin import *
 
-address = getEmail("addresses.txt")
 tickers = getTickers()
 codes = getCodes(tickers)
 triggerOpenTime = 930
@@ -24,7 +23,7 @@ if(internet_on()):
         writePriceToFile("O", ticker, getDate())
     writeFile(tickers)
     time.sleep(10)
-    emailFile(address, 'web')
+    emailFile('web')
     time.sleep(240)
 else:
     print("NOT Connected to Internet")
@@ -36,6 +35,9 @@ if(internet_on()):
 else:
     print("NOT Connected to Internet")
 
+# getTo("addresses.txt")
+# getFrom("addresses.txt")
+# getPass("addresses.txt")
 
 
 #         else:

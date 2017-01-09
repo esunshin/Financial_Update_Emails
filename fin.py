@@ -136,9 +136,9 @@ def writeFile(dict):
     print(text)
     writeText(text)
 
-def emailFile(emailAddress, fileName):
-    yag = 
-    to = 'ezra.sunshine@gmail.com'
+def emailFile(fileName):
+    yag = yagmail.SMTP(getFrom("addresses.txt"), getPass("addresses.txt"))
+    to = getTo("addresses.txt")
     subject = 'Financial Update'
     body = (fileName + '.html')
     yag.send(to = to, subject = subject, contents = body)
@@ -226,16 +226,24 @@ def internet_on():
     except urllib2.URLError as err: pass
     return False
 
-def getEmail(emailFile):
+def getTo(emailFile):
     with open(emailFile, "rb") as f:
         email = f.readline()
-    print email
-    return email
+    to = email.split(',',1)[0]
+    print to
+    return to
+    
+def getFrom(emailFile):
+    with open(emailFile, "rb") as f:
+        email = f.readline()
+    sender = email.split(',',2)[1]
+    print sender
+    return sender
 
 def getPass(emailFile):
     with open(emailFile, "rb") as f:
         email = f.readline()
-    pw = email.split(',',1)[1]
+    pw = email.split(',',2)[2]
     print pw
     return pw
 
