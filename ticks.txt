@@ -1,0 +1,5 @@
+CL1:COM,Crude
+GC1:COM,Gold
+EURUSD:CUR,Euro/Dollar
+USGG10YR:IND,10Yr Bond
+SPX:IND,S&P
