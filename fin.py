@@ -29,7 +29,7 @@ class Finance:
                 name = nameN.split('\n',1)[0]
                 self.tickers[ticker] = name
         ticks = self.getCodes(self.tickers)
-
+        
         for tick in ticks:
             news = self.getNewsForTicker(tick)
             self.news[tick] = news
