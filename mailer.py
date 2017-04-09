@@ -4,6 +4,11 @@ from writer import *
 import sys
 
 def main():
+    
+    if(len(sys.argv) != 5):
+        print("Usage: mailer.py <ticker file> <open time> <close time> <loop y/n>")
+        exit(0)
+
     tickerFile = sys.argv[1]
     triggerOpenTime = int(sys.argv[2])
     triggerCloseTime = int(sys.argv[3])
