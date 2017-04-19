@@ -84,7 +84,7 @@ class Write:
         for tick in self.tickers.keys():
             text += "<b>" + self.tickers[tick] + "</b><br>\n"
             text += self.writeNews(tick)
-        print(text)
+#        print(text)
         self.writeText(text, fileName)
 
     def writeAllPricesToFile(self, OorC):
