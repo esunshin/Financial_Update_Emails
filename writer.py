@@ -24,11 +24,13 @@ class Write:
         newsText = self.news[tick]
         style = "style=\"background-color:#E2E2E2;color:black;padding:5px;\""
         Articles = newsText
+        text = ""
         web = ""
         for k in range (0,3):
             Articles[k][0] = Articles[k][0].translate({ord(c): None for c in 'â'})
             web = ("    <a href=\"" + Articles[k][1] + "\">" + Articles[k][0] + "</a>")
-            writeText(web + "<br>" + "\n")
+            text += (web + "<br>" + "\n")
+        return text
 
     def remFile(self, fileName):
         try:
@@ -79,7 +81,10 @@ class Write:
             text += self.writeLine("  </tr>")
 
         text += self.writeLine("</table>")
-        print(text)
+        for tick in self.tickers.keys():
+            text += "<b>" + self.tickers[tick] + "</b><br>\n"
+            text += self.writeNews(tick)
+#        print(text)
         self.writeText(text, fileName)
 
     def writeAllPricesToFile(self, OorC):

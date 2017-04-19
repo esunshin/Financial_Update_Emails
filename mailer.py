@@ -10,16 +10,24 @@ def main():
         exit(0)
 
     tickerFile = sys.argv[1]
-    triggerOpenTime = int(sys.argv[2])
-    triggerCloseTime = int(sys.argv[3])
+
+    triggerOpenTime = sys.argv[2] 
+    trigOpenHr,trigOpenMin = map(int, triggerOpenTime.split(':',1))
+
+    triggerCloseTime = sys.argv[3]
+    trigCloseHr,trigCloseMin = map(int, triggerCloseTime.split(':',1))
+    
+    trigOpen = (trigOpenHr, trigOpenMin);
+    trigClose = (trigCloseHr, trigCloseMin);
+
     loopText = sys.argv[4][0:1].lower()
     loop = True if (loopText == "1" or loopText == "y") else False
     
     print("tickers = " + tickerFile)
-    print("OTime   = " + str(triggerOpenTime))
-    print("CTime   = " + str(triggerCloseTime))
+    print("OTime   = " + str(trigOpen[0]) + ":" + str(trigOpen[1]))
+    print("CTime   = " + str(trigClose[0]) + ":" + str(trigClose[1]))
     print("loop?   = " + str(loop))
-    
+    print("nowTime = " + str(getHMinCombo())) 
     writer = Write(tickerFile)
 
     if not loop:
@@ -31,14 +39,14 @@ def main():
 
     while True:
         if isWeekday():
-            if isTime(triggerOpenTime):
+            if isTime(trigOpen):
                 writer.updateAll()
                 writer.writeAllPricesToFile("O")
                 writer.writeFile('web.html')
                 emailFile('web.html', 'addresses.txt')
             else:
                 time.sleep(60)
-        elif isTime(triggerCloseTime):
+        elif isTime(trigClose):
             writer.updateAll()
             writer.writeAllPricesToFile("C")
         else:
@@ -72,10 +80,14 @@ def getEmail(addressFile):
     return email.split(',',2)
 
 def getHMinCombo():
-    return int(str(datetime.now().hour) + str(datetime.now().minute))
+    return (datetime.now().hour, datetime.now().minute);
 
 def isTime(theTime):
-    return (getHMinCombo() in range(theTime, theTime + 3))
+    curHr  = getHMinCombo()[0]
+    curMin = getHMinCombo()[1]
+    hrSame = (theTime[0] == currHr)
+    minSame = (curMin in range(theTime[0], theTime[0] + 3))
+    return (hrSame and minSame)
 
 def isWeekday():
     day = datetime.now().weekday()
