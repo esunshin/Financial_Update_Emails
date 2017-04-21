@@ -85,7 +85,7 @@ def getHMinCombo():
 def isTime(theTime):
     curHr  = getHMinCombo()[0]
     curMin = getHMinCombo()[1]
-    hrSame = (theTime[0] == currHr)
+    hrSame = (theTime[0] == curHr)
     minSame = (curMin in range(theTime[0], theTime[0] + 3))
     return (hrSame and minSame)
 
