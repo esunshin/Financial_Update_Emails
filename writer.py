@@ -40,8 +40,13 @@ class Write:
 
     def writeText(self, text, fileName):
         with open(fileName, 'a') as the_file:
-            the_file.write(text)
-        
+            try:
+                the_file.write(text.encode('utf-8'))
+            except Exception, e:
+                print("UnicodeEncodeError: \n")
+                print(e)
+                print("\n")
+
     def writeTitle(self, title):
         writeText("    <b style=\"color:red\">" + title + "</b><br>\n")
 
