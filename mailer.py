@@ -44,11 +44,13 @@ def main():
                 writer.writeAllPricesToFile("O")
                 writer.writeFile('web.html')
                 emailFile('web.html', 'addresses.txt')
+                time.sleep(180)
+            elif isTime(trigClose):
+                writer.updateAll()
+                writer.writeAllPricesToFile("C")
+                time.sleep(180)
             else:
                 time.sleep(60)
-        elif isTime(trigClose):
-            writer.updateAll()
-            writer.writeAllPricesToFile("C")
         else:
             time.sleep(3600)
 
@@ -86,7 +88,7 @@ def isTime(theTime):
     curHr  = getHMinCombo()[0]
     curMin = getHMinCombo()[1]
     hrSame = (theTime[0] == curHr)
-    minSame = (curMin in range(theTime[0], theTime[0] + 3))
+    minSame = (curMin in range(theTime[0], theTime[0] + 2))
     return (hrSame and minSame)
 
 def isWeekday():
