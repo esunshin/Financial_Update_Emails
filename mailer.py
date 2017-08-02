@@ -5,23 +5,30 @@ import sys
 
 def main():
     
-    if(len(sys.argv) != 5):
+    if(len(sys.argv) == 1):
+        tickerFile = "ticks.txt"
+        triggerOpenTime = "10:00"
+        triggerCloseTime = "17:00"
+        loopText = "n"
+
+    elif(len(sys.argv) != 5):
         print("Usage: mailer.py <ticker file> <open time> <close time> <loop y/n>")
         exit(0)
 
-    tickerFile = sys.argv[1]
-
-    triggerOpenTime = sys.argv[2] 
-    trigOpenHr,trigOpenMin = map(int, triggerOpenTime.split(':',1))
-
-    triggerCloseTime = sys.argv[3]
-    trigCloseHr,trigCloseMin = map(int, triggerCloseTime.split(':',1))
+    else:
+        tickerFile = sys.argv[1]
+        triggerOpenTime = sys.argv[2] 
+        triggerCloseTime = sys.argv[3]
+        loopText = sys.argv[4][0:1].lower()
     
-    trigOpen = (trigOpenHr, trigOpenMin);
-    trigClose = (trigCloseHr, trigCloseMin);
-
-    loopText = sys.argv[4][0:1].lower()
+    
     loop = True if (loopText == "1" or loopText == "y") else False
+    trigOpenHr,trigOpenMin = map(int, triggerOpenTime.split(':',1)) 
+    trigCloseHr,trigCloseMin = map(int, triggerCloseTime.split(':',1))
+    trigOpen = (trigOpenHr, trigOpenMin);    
+    trigClose = (trigCloseHr, trigCloseMin);
+    
+    
     
     print("tickers = " + tickerFile)
     print("OTime   = " + str(trigOpen[0]) + ":" + str(trigOpen[1]))

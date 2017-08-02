@@ -87,6 +87,8 @@ class Write:
 
         text += self.writeLine("</table>")
         for tick in self.tickers.keys():
+            if self.tickers[tick] == "Gold":
+                continue
             text += "<b>" + self.tickers[tick] + "</b><br>\n"
             text += self.writeNews(tick)
 #        print(text)
